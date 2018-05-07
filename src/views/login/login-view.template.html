@@ -1,0 +1,37 @@
+<div class="middle-box text-center loginscreen animated fadeInDown">
+    <div>
+        <h3>Welcome to the Saskatchewan Soil Information System</h3>
+        <p>Login</p>
+
+        <form class="m-t" role="form" [formGroup]="loginForm" (ngSubmit)="login($event)">
+
+            <div class="form-group">
+                <input type="email"
+                       class="form-control"
+                       placeholder="email"
+                       required
+                       formControlName="email"
+                >
+            </div>
+
+            <div class="form-group">
+                <input type="password"
+                       class="form-control"
+                       placeholder="password"
+                       required
+                       formControlName="password"
+                >
+            </div>
+
+            <button class="btn btn-primary block full-width m-b" type="submit">Login</button>
+
+            <!--<a href="#"><small>Forgot password?</small></a>-->
+            <p class="text-muted text-center"><small>Don't have an account?</small></p>
+            <a class="btn btn-sm btn-white btn-block" href="#register">Create an account</a>
+
+        </form>
+
+        <p class="m-t"> <small>Saskatchewan Soil Information System 2017</small> </p>
+    </div>
+</div>
+

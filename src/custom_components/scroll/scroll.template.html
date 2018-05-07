@@ -1,0 +1,14 @@
+<div class="screen">
+    <a href="" *ngIf="!isDown" (click)="scroll($event, 'down')">
+        <div class="icon-background" id="snackbar">
+            <i class="fas fa-angle-double-down" style="color: white;"></i>
+        </div>
+    </a>
+
+    <a href="" *ngIf="isDown" (click)="scroll($event, 'up')">
+        <div class="icon-background" id="snackbar">
+            <i class="fas fa-angle-double-up" style="color: white;"></i>
+        </div>
+    </a>
+</div>
+

@@ -1,0 +1,217 @@
+
+<div class="wrapper wrapper-content animated fadeIn">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="tabs-container">
+
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#point">Point data</a></li>
+                    <li class=""><a data-toggle="tab" href="#soilpit">Soil Pit</a></li>
+                    <li class=""><a data-toggle="tab" href="#yours" (click)="getContributions()">Your contributions</a></li>
+                </ul>
+
+                <div class="tab-content">
+
+                    <div id="point" class="tab-pane active">
+                        <div class="panel-body">
+                            <div class="ibox-content">
+                                <form class="m-t" role="form" novalidate name="point-data-form" [formGroup]="dataUploadForm" (ngSubmit)="uploadData()">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Data type:</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control m-b" required formControlName="datatype" (change)="onChangeDatatype($event.target.value)">
+                                                <option>photo</option>
+                                                <option>observation</option>
+                                                <option>publication</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Lat:</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="number"
+                                                   placeholder="Latitude"
+                                                   step="any"
+                                                   class="form-control"
+                                                   required
+                                                   formControlName="latitude"/>
+                                            <span class="help-block m-b-none"></span>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group"><label class="col-sm-2 control-label">Long:</label>
+
+                                        <div class="col-sm-10"><input type="number" placeholder="Longitude" step="any"
+                                                                      class="form-control" required
+                                                                      formControlName="longitude"/><span
+                                                class="help-block m-b-none"></span></div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Description:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text"
+                                                    placeholder="Description"
+                                                    class="form-control"
+                                                    required
+                                                    formControlName="description"/>
+                                            <span class="help-block m-b-none"></span>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group" [hidden]="datatype=='observation'">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <div class="fileinput fileinput-new input-group" data-provides="fileinput" >
+                                                <div class="form-control"
+                                                     data-trigger="fileinput">
+                                                    <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                                    <span class="fileinput-filename"></span>
+                                                </div>
+
+                                                <span class="input-group-addon btn btn-default btn-file">
+                                                    <span class="fileinput-new">Select file</span>
+                                                    <span class="fileinput-exists">Change</span>
+                                                    <input type="file"
+                                                           name="fileList"
+                                                           #fileList
+
+                                                        (change)="fileAdded($event)"
+                                                        required>
+                                                </span>
+
+                                                <a href="#"
+                                                   class="input-group-addon btn btn-default fileinput-exists"
+                                                   data-dismiss="fileinput">Remove
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <button class="btn btn-sm btn-white"
+                                                    [disabled]="!dataUploadForm.valid"
+                                                    type="submit">Upload
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="soilpit" class="tab-pane">
+                        <div class="panel-body">
+                            <soil-pit-form (soilFormSubmittedEmitter)="soilPitSubmit($event)"></soil-pit-form>
+                        </div>
+                    </div>
+
+                    <div id="yours" class="tab-pane">
+                        <div class="panel-body">
+                            <div class="ibox float-e-margins">
+                                <h1 style="margin-top: 0px;">Point data</h1>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Upload Date</th>
+                                                <th>Description</th>
+                                                <th>Datatype</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let value of contributions">
+                                                <td>{{ value.date_upload }}</td>
+                                                <td>{{ value.description }}
+                                                <td>{{ value.datatype }}</td>
+                                                <td>
+                                                    <button class="btn btn-danger" (click)="deletePoint(value)">Delete</button>
+                                                    <a data-toggle="modal" (click)="loadPointForEditing(value)" class="btn btn-primary" href="#modal-form">Edit</a>
+                                                </td>
+                                            </tr>
+                                    </table>
+                                </div>
+
+                                <h1>Soil Pits</h1>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Lat</th>
+                                            <th>Long</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr *ngFor="let value of pits">
+                                            <td>{{value.name}}</td>
+                                            <td>{{value.lat}}</td>
+                                            <td>{{value.long}}</td>
+                                            <td>
+                                                <button class="btn btn-danger" (click)="deletePit(value)">Delete</button>
+                                                <!--<a data-toggle="modal" (click)="loadPointForEditing(value)" class="btn btn-primary" href="#modal-form">Edit</a>-->
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="modal-form" class="modal fade" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h3 class="m-t-none m-b">Edit point</h3>
+
+                                            <form role="form">
+                                                <div class="form-group">
+                                                    <label>Description</label>
+                                                    <textarea rows="3" [(ngModel)]="descriptionBeingEdited" [ngModelOptions]="{standalone: true}" class="form-control"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <a data-toggle="modal"
+                                                       href="#modal-form"
+                                                       class="btn btn-sm btn-primary pull-right m-t-n-xs"
+                                                       type="submit"
+                                                       (click)="updatePoint()"><strong>Save</strong></a>
+                                                </div>
+                                                <div class="form-group">
+                                                    <a data-toggle="modal"
+                                                       href="#modal-form"
+                                                       class="btn btn-sm pull-right  m-t-n-xs"><strong>Cancel</strong></a>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h3>Please note that at this time all uploaded data will be public.</h3>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+

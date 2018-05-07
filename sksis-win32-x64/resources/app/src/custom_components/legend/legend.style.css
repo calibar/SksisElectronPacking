@@ -1,0 +1,8 @@
+legend {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    font-size: 18px;
+    z-index: 100000;
+    background-color: white;
+}

@@ -1,0 +1,68 @@
+<div class="row border-bottom white-bg">
+    <div class="col-sm-12">
+
+        <h1>Developer</h1>
+        <p>Learn how to use SKSIS data in your own applications. </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6">
+
+        <div class="ibox float-e-margins" style="margin-top: 15px;">
+
+            <div class="ibox-title">
+                <h3>Map Tiles</h3>
+            </div>
+
+            <div class="ibox-content">
+
+                <p>SKSIS map tiles are served via an instance of <a href="http://geoserver.org/"> GeoServer</a> located <a href="https://sksoilgis1.usask.ca/geoserver/web/">here.</a></p>
+                <p>Click 'layer preview' to see the layers available. </p>
+                <p>These can be consumed and displayed in a number of ways. An example, using the <a href="#">OpenLayers</a> javascript library would look something like this:</p>
+
+                <pre [innerHtml]="html"></pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+
+        <div class="ibox float-e-margins" style="margin-top: 15px;">
+            <div class="ibox-title">
+                <h3>Soil Data</h3>
+            </div>
+            <div class="ibox-content">
+
+                <p>You might be interested in soil data without having to consume a map tile. The <a href="http://sksoils.usask.ca/dreamfactory/dist/index.html#/">SKSIS API</a> provides that functionality.</p>
+
+                <p>If you are viewing this page, you have a SKSIS account. Click 'Request API Access' below, and then use you SKSIS credentials to sign into dreamfactory at the above link and choose 'API Docs'.</p>
+
+                <!--<button class="btn btn-default" (click)="checkApiAccess(event)">Check API access</button>-->
+
+
+
+                <p>There you will see the full API documentation, with examples.</p>
+
+                <p>When making REST requests, you will need to use the following API key:</p>
+
+                <pre><code>0c6c4a2baf6ac608f2ef74354b1bbc2651a05675000983a397b07a5df96b1eac</code></pre>
+
+                <p>Your current access:</p>
+
+                <div *ngIf="dataLoaded">
+
+                    <div *ngIf="serviceRoleData[2].length == 0">
+                        <p >You have no access</p>
+                        <button class="btn btn-default" (click)="requestApiAccess(event)">Request API Access</button>
+                    </div>
+
+                    <div *ngIf="serviceRoleData[2].length > 0">
+                        <p> {{ roleString }}</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

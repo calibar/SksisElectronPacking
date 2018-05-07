@@ -1,0 +1,31 @@
+
+/*.toolbox-element {*/
+    /*display: inline-block;*/
+/*}*/
+
+/*.test{*/
+    /*font-weight: bold;*/
+/*}*/
+
+
+.side-by {
+    display: inline-block;
+}
+
+p-slider {
+    max-width: 100%;
+}
+
+a {
+    color: #676a6c;
+
+}
+
+a:hover {
+    color: #337ab7;
+}
+
+.ibox-content {
+    padding-left: 12px;
+    padding-right: 12px;
+}

@@ -1,0 +1,119 @@
+<div class="col-lg-4">
+    <div class="ibox float-e-margins">
+        <a class="collapse-link">
+            <div class="ibox-title">
+                <h5>Tools</h5>
+                <div class="ibox-tools">
+
+                        <i class="fa fa-chevron-up"></i>
+
+                </div>
+            </div>
+        </a>
+
+        <div class="ibox-content">
+
+            <label>Theme:</label>
+            <select class="form-control" (change)="changeTheme($event)">
+                <option *ngFor="let theme of themes" value="{{ theme.value }}"> {{ theme.name }}</option>
+            </select>
+
+            <label>Basemap:</label>
+            <select class="form-control" (change)="changeBasemap($event)">
+                <option *ngFor="let map of bmaps" value="{{ map.id }}"> {{ map.name }}</option>
+            </select>
+            <br>
+
+            <label>Toggle polygons </label>
+            <div class="switch ">
+                <div class="onoffswitch">
+                    <input type="checkbox"
+                           checked
+                           class="onoffswitch-checkbox"
+                           id="example1"
+                           (change)="changeLayers($event)">
+                    <label class="onoffswitch-label" for="example1">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                    </label>
+                </div>
+            </div>
+
+            <label class="side-by">Toggle treaty layer </label>
+            <div class="switch ">
+                <div class="onoffswitch">
+                    <input type="checkbox"
+                           class="onoffswitch-checkbox"
+                           id="treaty"
+                           (change)="toggleTreaty($event)">
+                    <label class="onoffswitch-label" for="treaty">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                    </label>
+                </div>
+            </div>
+            <br>
+
+            <label class="side-by">Adjust polygon transparency </label>
+            <p-slider
+                    [(ngModel)]="polygonOpacity"
+                    (onChange)="changePolygonOpacity($event)"
+            ></p-slider>
+
+            <br>
+
+            <label>Point Datatypes: </label>
+            <div *ngFor="let point of pointDataTypes" class="toolbox-element">
+                <input type="checkbox"
+                       [(ngModel)]="point.selected"
+                       (change)="changePointType(point)" >{{ ' ' + point.name + ' ' }}
+            </div>
+
+            <br>
+            <a (click)="goToDsm(event)">Digital Soil Mapped Site</a>
+
+
+        </div>
+    </div>
+</div>
+
+
+<!--No longer used as I replaced with the select-list, but good reference for radio button creation-->
+<!--<table>-->
+    <!--<thead>-->
+    <!--<td>Basemap selector</td>-->
+    <!--<td></td>-->
+    <!--</thead>-->
+    <!--<tbody>-->
+    <!--<tr *ngFor="let map of bmaps">-->
+        <!--<td>-->
+            <!--<input-->
+                    <!--type="radio"-->
+                    <!--name="radiogroup"-->
+                    <!--(change)="changeBasemap(map)"-->
+                    <!--[checked]="(map.id === 3)"-->
+            <!--&gt;-->
+        <!--</td>-->
+        <!--<td>{{ map.name}}</td>-->
+
+    <!--</tr>-->
+    <!--</tbody>-->
+<!--</table>-->
+
+<!--<div class="row">-->
+<!--<div class="col-xs-12">-->
+<!--<div class="button-group">-->
+<!--<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">Layers <span class="caret"></span></button>-->
+<!--<ul class="dropdown-menu">-->
+<!--<li><a href="#" class="small" data-value="2" tabIndex="-1"><input type="checkbox"/>&nbsp;Polygon Outlines</a></li>-->
+<!--<li><a href="#" class="small" data-value="3" tabIndex="-1"><input type="checkbox"/>&nbsp;Polygon Labels</a></li>-->
+<!--<li><a href="#" class="small" data-value="4" tabIndex="-1"><input type="checkbox"/>&nbsp;Sections</a></li>-->
+<!--<li><a href="#" class="small" data-value="5" tabIndex="-1"><input type="checkbox"/>&nbsp;Treaty</a></li>-->
+<!--<li><a href="#" class="small" data-value="7" tabIndex="-1"><input type="checkbox"/>&nbsp;Township</a></li>-->
+<!--<li><a href="#" class="small" data-value="8" tabIndex="-1"><input type="checkbox"/>&nbsp;Rms</a></li>-->
+
+<!--RMS-->
+<!--</ul>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->

@@ -1,0 +1,9 @@
+<div class="hidden" id="legend">
+    <div *ngIf="themeInfo">
+        <h3 class="leg-title">{{ themeName }}</h3>
+        <div *ngFor="let item of themeInfo; let i = index" class="legend-items">
+            <div class="legend-color-box" [style.background-color]=getBackgroundColor(i)></div>
+            <p class="leg-item">{{ item.title }}</p>
+        </div>
+    </div>
+</div>

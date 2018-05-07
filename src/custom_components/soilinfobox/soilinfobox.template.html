@@ -1,0 +1,155 @@
+<div class="col-lg-4">
+    <div class="ibox float-e-margins">
+        <a class="collapse-link">
+            <div class="ibox-title">
+                <h5>Information</h5>
+                <div class="ibox-tools">
+
+                        <i class="fa fa-chevron-up"></i>
+
+                </div>
+            </div>
+        </a>
+        <div class="ibox-content">
+
+            <div class="tabs-container">
+                <ul class="nav nav-tabs">
+                    <li class="active "><a data-toggle="tab" style="padding-right: 10px; padding-left: 10px;" href="#tab-1">Map</a></li>
+                    <li class=""><a data-toggle="tab" style="padding-right: 10px; padding-left: 10px;" href="#tab-2">
+                        {{ pointOrPolygonSelection == '' ?
+                        'Polygon' :
+                        pointOrPolygonSelection.charAt(0).toUpperCase() + pointOrPolygonSelection.slice(1) }}
+                    </a></li>
+                    <li class=""><a data-toggle="tab" style="padding-right: 10px; padding-left: 10px;" href="#tab-3">Component</a> </li>
+
+                </ul>
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane active">
+                        <div class="panel-body">
+                            <p><b>Mouse position (WGS84):</b> {{ mouseLatitude }}&deg; {{ mouseLongitude }}&deg;</p>
+                            <p><b>Click coordinate:</b> {{ clickCoordinateLat }} {{ clickCoordinateLong }}</p>
+                            <p>{{ scaleString }}</p>
+                        </div>
+                    </div>
+
+                    <div id="tab-2" class="tab-pane">
+                        <div class="panel-body">
+                            <div *ngIf="pointOrPolygonSelection == 'polygon'">
+                                <p><strong>Polygon ID:</strong> {{ selectedFeature?.poly_id }}</p>
+
+                                <p><strong>Surface Expression:</strong> {{ selectedFeature?.surfexname }}</p>
+
+                                <p><strong>Slope Description:</strong> {{ selectedFeature?.slope_description }} </p>
+
+                                <p><strong>Stoniness:</strong> {{ selectedFeature?.stonename }}</p>
+
+                                <p><strong>Polygon Label:</strong> {{ selectedFeature?.polygon_label }}</p>
+                                <p> {{ selectedFeature?.mapunitDescription }}</p>
+
+                                <p><strong>Surface Texture:</strong> <a href="#" data-toggle="modal" data-target="#exampleModal" > {{  selectedFeature?.text1 }}</a></p>
+
+                                <p><strong>Ag Capability:</strong> {{ selectedFeature?.capblty }}</p>
+                                <p> {{ selectedFeature?.agCapDesc }}</p>
+
+                                <p><strong>Salinity Class:</strong> {{ selectedFeature?.salsym }}</p>
+                                <p>Salinity affect on productivity: {{ selectedFeature?.salDesc }}</p>
+
+                                <p><strong>pH Class:</strong> {{ selectedFeature?.phsym }}</p>
+                                <p> {{ selectedFeature?.phDefinition }}</p>
+
+                                <div class="progress">
+                                    <div *ngFor="let item of phProportions; let i = index" class="progress-bar {{progressBarTypes[i]}}" role="progressbar" style.width="{{item.percent}}%">{{item.description}}</div>
+                                </div>
+
+                                <p><strong>Area:</strong> {{ selectedFeature?.hectares }} ha</p>
+
+<a class="btn btn-default" href="mailto:sksis_support@usask.ca?subject=Data feedback in polygon {{ selectedFeature?.poly_id }} &body=Polygon ID:{{ selectedFeature?.poly_id }}%0D%0A
+Location: {{ clickCoordinateLat }} {{ clickCoordinateLong }}%0D%0A%0D%0A
+
+Please give detailed feedback:%0D%0A%0D%0A
+Thanks!
+
+">Provide Feedback</a>
+
+                            </div>
+
+                            <div *ngIf="pointOrPolygonSelection == 'point'">
+                                <p><strong>Data type:</strong> {{ selectedFeature?.datatype }}</p>
+                                <p><strong>Description:</strong> {{ selectedFeature?.description }}</p>
+                                <p><strong>Uploader:</strong> {{ selectedFeature?.uploader }}</p>
+                                <p><strong>Date uploaded:</strong> {{ selectedFeature?.date_upload }}</p>
+
+                                <div *ngIf="pointType == 'photo'">
+                                    <img class="thumb" [src]="imageToShow"
+                                         alt="Place image title"
+                                         *ngIf="!isImageLoading; else noImageFound">
+                                </div>
+
+                                <div *ngIf="pointType == 'publication'">
+                                    <a id="pdfDownload" class="btn btn-primary btn-sm" download #pdfLink>Download</a>
+                                </div>
+
+
+                            </div>
+
+                            <div *ngIf="pointOrPolygonSelection == ''">
+                                <p><strong>Please select a polygon</strong></p>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div id="tab-3" class="tab-pane">
+                        <div class="panel-body">
+                            <div *ngIf="pointOrPolygonSelection == 'polygon'">
+                                <doughnut-chart></doughnut-chart>
+                                <div class="bg-muted sm-padding" *ngFor="let comp of components">
+                                    <p><strong>Soil name:</strong> {{comp?.soilname}}</p>
+                                    <p><strong>% of polygon:</strong> {{comp?.percent}}</p>
+                                    <p><strong>Classification:</strong> {{comp?.classification}}</p>
+                                    <p><strong>Parent material:</strong> {{comp?.parent_material}}</p>
+                                </div>
+                            </div>
+                            <div *ngIf="pointOrPolygonSelection == ''">
+                                <p><strong>Please select a polygon</strong></p>
+                            </div>
+
+<a class="btn btn-default" href="mailto:sksis_support@usask.ca?subject=Data feedback with components of polygon {{ selectedFeature?.poly_id }} &body=Polygon ID:{{ selectedFeature?.poly_id }}%0D%0A
+Location: {{ clickCoordinateLat }} {{ clickCoordinateLong }}%0D%0A%0D%0A
+
+Please give detailed feedback:%0D%0A%0D%0A
+Thanks!
+
+">Provide Feedback</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Texture Triangle</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img class="img-responsive" src="../../assets/img/texture-triangle.png">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--{ "filename": "IMG_0332.JPG", "datatype": "photo", "uploader": "kent.walters@usask.ca", "date_upload": "2017-02-14Z", -->
+<!--"description": "B horizon exposure during pipeline integrity dig west of Saskatoon, SK", "bbox": [ -106.8355, 52.1828, -106.8355, 52.1828 ] }-->

@@ -1,0 +1,141 @@
+<div class="col-lg-4">
+    <div class="ibox float-e-margins">
+        <a class="collapse-link">
+            <div class="ibox-title">
+                <h5>Query</h5>
+                <div class="ibox-tools">
+                    <i class="fa fa-chevron-up"></i>
+                </div>
+            </div>
+        </a>
+        <div class="ibox-content">
+
+            <div class="q-selc mt5" *ngFor="let q of queryStore.getQueries(), let i = index" style="overflow: hidden;" >
+                <span><span *ngIf="i!=0">{{q.logicalOperator}}</span>{{ q.getStartParens() }} {{  getAtrName(q.attribute) }} = {{ q.valueName }} {{ q.getEndParens()}}</span>
+                <br>
+                <button class="btn btn-sm btn-default mt5 hw flr" (click)="addParenthesis('(', q)">(</button>
+                <button class="btn btn-sm btn-default mt5 hw flr" (click)="addParenthesis(')', q)">)</button>
+                <button style="display:inline-block; float: right;" class="btn btn-sm btn-primary mt5 " (click)="removeAndReapplyQuery(q)">&times;</button>
+            </div>
+
+            <span class="warn" *ngIf="!queryStore.parensAreBalanced()">Brackets are imbalanced</span>
+
+            <div class="q-selc mt5">
+                <div *ngIf="queryStore.getQueries().length != 0">
+                    <button class="btn btn-sm btn-primary mt5 hw" (click)="applyFilter('and')">and</button>
+                    <button class="btn btn-sm btn-primary mt5 hw" (click)="applyFilter('or')">or</button>
+
+                </div>
+
+                <label>Filter polygons where:</label><br>
+
+                <select class="form-control" (change)="loadNewAttributeValues($event.target.selectedIndex, $event.target.value)">
+                    <option *ngFor="let atr of polygonAttributes" value="{{ atr.value }}" [disabled]="atr.disabled">{{ atr.name }}</option>
+                </select>
+
+                <label>is</label>
+
+                <select class="form-control" (change)="currentAtrVals($event)">
+                    <option *ngFor="let item of currentPolyAttributeValues" value="{{ item.value }}">{{ item.name }}</option>
+                </select>
+
+
+                <button *ngIf="queryStore.getQueries().length == 0" class="btn btn-sm btn-primary mt5" (click)="applyFilter()">Apply</button>
+
+
+
+
+                <!--<span tooltip="Make sure the map is not themed on soil zone, or I won't work."-->
+                      <!--[tooltipDisabled]="false"-->
+                      <!--[tooltipAnimation]="true"-->
+                      <!--tooltipPlacement="top">-->
+                    <!---->
+                <!--</span>-->
+            </div>
+
+
+
+            <br><br>
+
+            <label>Search by:</label><br>
+
+            <div class="tabs-container">
+
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#lld">LLD</a></li>
+                    <li><a data-toggle="tab" href="#latlong">Lat Long</a></li>
+                    <li><a data-toggle="tab" href="#here">Here</a> </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="lld" class="tab-pane fade in active">
+                        <div class="panel-body">
+
+                            <div class="form-group" id="lld-selectors">
+                                <select class="form-control" [(ngModel)]="section">
+                                    <option *ngFor="let i of sections">{{ i }}</option>
+                                </select>
+                                <select class="form-control" [(ngModel)]="township">
+                                    <option *ngFor="let i of townships">{{ i }}</option>
+                                </select>
+                                <select class="form-control" [(ngModel)]="range">
+                                    <option *ngFor="let i of ranges">{{ i }}</option>
+                                </select>
+                                <select class="form-control" [(ngModel)]="meridian">
+                                    <option *ngFor="let i of meridians">{{ i }}</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-sm btn-primary full-width" (click)="searchLLD()">Submit</button>
+
+                            <label class="error" *ngIf="LLDerror.hasError()">{{ LLDerror.message }}</label>
+
+                        </div>
+                    </div>
+
+                    <div id="latlong" class="tab-pane fade">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <input [(ngModel)]="lat" type="number" min=48 max=62 placeholder="Latitude" class="form-control" name="top-search">
+                            </div>
+                            <div class="form-group">
+                                <input [(ngModel)]="long" type="number" placeholder="Longitude" class="form-control" name="top-search">
+                            </div>
+
+                            <button class="btn btn-sm btn-primary full-width" (click)="searchLatLong()">Submit</button>
+
+                            <label class="error" *ngIf="LatLongError.hasError()">{{ LatLongError.message }}</label>
+                        </div>
+                    </div>
+
+                    <div id="here" class="tab-pane fade">
+                        <div class="panel-body">
+                            <button class="btn btn-default btn-block" (click)="rightHere(event)"><strong>What is the soil right here?</strong></button>
+                            <p style="margin-bottom: 0px;"> {{ queryMessage }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--<select>-->
+<!--<option *ngFor="let type of dataTypes"> {{ type.name }}</option>-->
+<!--</select>-->
+
+<!--<label>from</label>-->
+<!--<select [(ngModel)]="currentLocType">-->
+<!--<option *ngFor="let loc of locationTypes">{{ loc.name }}</option>-->
+<!--</select>-->
+
+<!--<span *ngIf="currentLocType == 'Specific location'">-->
+<!--<label>by</label>-->
+<!--<select [(ngModel)]="currentSelMethod">-->
+<!--<option *ngFor="let method of locSelectionMethod" value="{{method.value}}">{{ method.name }}</option>-->
+<!--</select>-->
+
+<!--<label> where {{ currentSelMethod }}</label>-->
+<!--</span>-->
+
+

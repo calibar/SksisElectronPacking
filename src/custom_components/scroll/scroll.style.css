@@ -1,0 +1,40 @@
+.icon-background {
+    background-color: rgba(0,60,136,.5);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+
+    position: absolute;
+    right: 40px;
+    bottom: 35px;
+
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999999999999999999999;
+
+
+
+}
+
+.screen {
+    position: relative;
+
+    background-color: rgba(255,255,255,.4);
+    border-radius: 4px;
+}
+
+.white-icon {
+    color: white;
+}
+
+@media (max-width: 500px) {
+    .icon-background {
+        bottom: 15px;
+        right: 25px;
+
+        width: 25px;
+        height: 25px;
+    }
+}

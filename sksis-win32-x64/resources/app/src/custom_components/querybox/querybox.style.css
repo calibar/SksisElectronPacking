@@ -1,0 +1,43 @@
+#lld-submit {
+    width: 100%;
+}
+
+.full-width{
+    width:100%;
+}
+
+.hw {
+    /*width: 45%;*/
+}
+
+a {
+    color: #676a6c;
+
+}
+
+a:hover {
+    color: #337ab7;
+}
+
+.mt5 {
+    margin-top: 5px;
+}
+
+.q-selc {
+    background-color: rgb(234, 234, 234);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.ibox-content {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+/*.flr {*/
+    /*float: right;*/
+/*}*/
+
+.warn {
+    color: red;
+}

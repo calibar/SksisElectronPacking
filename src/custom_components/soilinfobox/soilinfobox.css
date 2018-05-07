@@ -1,0 +1,37 @@
+img.thumb {
+    width: 100px;
+    -ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+    transform: rotate(180deg);
+}
+
+/*a {*/
+    /*color: #676a6c;*/
+
+/*}*/
+
+/*a:hover {*/
+    /*color: #337ab7;*/
+/*}*/
+
+.sm-padding {
+    padding: 4px;
+    padding-bottom: 0;
+    margin: 4px;
+    border-radius: 5px;
+}
+
+a {
+    color: #676a6c;
+
+}
+
+a:hover {
+    color: #337ab7;
+}
+
+
+.ibox-content .panel-body {
+    padding-left: 12px;
+    padding-right: 12px;
+}

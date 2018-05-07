@@ -1,0 +1,114 @@
+.tq-box {
+    display: inline;
+}
+
+.no-padding {
+    padding:0;
+}
+
+.map-box{
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+
+}
+
+.ibox-content{
+    padding: 0;
+}
+
+
+toolbox  {
+    /*border: 1px solid black;*/
+
+}
+
+querybox {
+    /*border: 1px solid black;*/
+}
+
+#map {
+    max-height: 600px;
+    min-height: 300px;
+    position: relative;
+}
+
+#legend {
+    position: absolute;
+    right:10px;
+    top:10px;
+
+    width:220px;
+
+    font-size: 18px;
+    z-index: 2;
+    background-color: white;
+
+    border: lightgray 1px;
+    border-style: solid;
+    padding: 4px;
+    -webkit-border-radius:2px;
+    -moz-border-radius:2px;
+    border-radius:2px;
+
+    opacity:0.95;
+    box-shadow: 4px 4px 2px grey;
+}
+
+.leg-title{
+    font-size: 12pt;
+}
+
+.legend-color-box{
+    float:left;
+    width:30px;
+    height:15px;
+    margin-right: 5px;
+}
+
+.legend-items{
+
+}
+
+.leg-item{
+    font-size: 10pt;
+    margin-bottom: 0;
+}
+
+
+
+@media (max-width: 500px) {
+    .wrapper {
+        padding: 0px !important;
+    }
+
+    .wrapper-content {
+        padding: 0px !important;
+    }
+
+    .map-ibox-content {
+        padding: 0px !important;
+    }
+
+    .col-lg-12 { padding: 0px !important; }
+
+    .ibox {
+        margin-bottom: 5px !important;
+    }
+
+    #map {
+        height:500px;
+    }
+}
+
+#progress {
+    /*position: absolute;*/
+    /*bottom: 0;*/
+    /*left: 0;*/
+    height: 5px;
+    /*background: rgba(0, 60, 136, 0.4);*/
+    background: #1ab394;
+    width: 0;
+    transition: width 150ms;
+}
